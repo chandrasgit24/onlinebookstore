@@ -9,7 +9,9 @@ pipeline {
         }
         stage('maven build') {
             steps {
-                sh' pwd '
+                sh 'pwd '
+                sh 'ls'
+                sh 'cd bookstore'
                 sh 'mvn package'
             }
         }
