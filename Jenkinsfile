@@ -1,5 +1,5 @@
 pipeline {
-    agent any {
+    agent any 
         stages {
             stage ("git checkout"){
                 steps{
@@ -24,4 +24,4 @@ pipeline {
             }
         }
     }
-}
+
