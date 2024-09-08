@@ -32,5 +32,6 @@ pipeline {
         success {
             echo "build executed successsfuly"
         }
+    }
 }
 
