@@ -11,7 +11,6 @@ pipeline {
             steps {
                 sh 'pwd '
                 sh 'ls'
-                sh 'cd bookstore'
                 sh 'mvn package'
             }
         }
