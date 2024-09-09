@@ -7,8 +7,8 @@ pipeline {
             steps {
                  docker {
                      image 'mvmadhan/maven-docker-agent:v1'
-                      args '--user root -v /var/run/docker.socket:/var/run/docker.socket'
-                     
+                     args '--user root -v /var/run/docker.socket:/var/run/docker.socket'
+                     git 'https://github.com/mvMadhan/onlinebookstore'   
                  }
             }
         }
