@@ -20,7 +20,7 @@ pipeline {
                     sh '''
                     pwd 
                     cd target
-                    cp -r onlinebook* /opt/apache-tomcat-9.0.93/webapps/
+                    cp -r onlinebook.war /opt/apache-tomcat-9.0.93/webapps/
                     '''
                 }
             }
