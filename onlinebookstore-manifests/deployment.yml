@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: onlinebooksore
-        image: mvmadhan/tomcat:replaceImageTag
+        image: mvmadhan/tomcat:17
         ports:
         - containerPort: 8080
