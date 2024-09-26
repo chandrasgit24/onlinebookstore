@@ -1,29 +1,34 @@
-pipeline{
+pipeline {
     agent {
         docker {
             image 'mvmadhan/maven-docker-agent:v1'
-            args ' --user root -v /var/run/docker.sock:/var/run/docker.sock'
+            args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
         }
-    stages{
-        stage("checkout"){
-            steps{
+    }
+
+    stages {
+        stage("checkout") {
+            steps {
                 sh 'echo file is cloned'
             }
         }
-        stage("build"){
-            steps{
+        
+        stage("build") {
+            steps {
                 sh 'pwd ; ls'
                 sh 'mvn build'
             }
         }
-        /*stage("dockerbuild"){
-            environment{
-                dokcer_image = "mvmadhan/tomcat:${BUILD_NUMBER}"
+        
+        /*
+        stage("dockerbuild") {
+            environment {
+                docker_image = "mvmadhan/tomcat:${BUILD_NUMBER}"
             }
-            steps{
+            steps {
                 sh 'docker build -t ${docker_image} .'
             }
-        }*/
         }
+        */
     }
 }
