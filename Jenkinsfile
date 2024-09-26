@@ -23,12 +23,12 @@ pipeline {
         
         stage("dockerbuild") {
             environment {
-                docker_image = "mvmadhan/tomcat:${BUILD_NUMBER}"
+                docker_image = "mvmadhan/tomcat"
                 DOCKER_CRED = credentials("docker-cred")
             }
             steps {
                 script{
-                    sh'docker build -t ${docker_image} .'
+                    sh'docker build -t ${docker_image}:${BUILD_NUMBER}  .'
                     def dockerImage = docker.image("${docker_image}:${BUILD_NUMBER}")
                     docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
                         dockerImage.push()
