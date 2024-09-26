@@ -36,7 +36,7 @@ pipeline {
                 }
             }
         }
-        stage('Update Deployment File') {
+        /*stage('Update Deployment File') {
             environment {
                 GIT_REPO_NAME = "onlinebookstore"
                 GIT_USER_NAME = "mvMadhan"
@@ -54,6 +54,6 @@ pipeline {
                     '''
                 }
             }
-        }
+        }*/
     }
 }
