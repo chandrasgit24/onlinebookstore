@@ -5,7 +5,6 @@ pipeline {
             args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
-
     stages {
         stage("checkout") {
             steps {
@@ -31,12 +30,14 @@ pipeline {
             }
         }
         stage{
-            environment{
+            environment {
                 DOCKER_CRED = credentials("docker-cred")
             }
             steps{
-                docker.withRegistry('https://index.docker.io/v1/', "docker-cred")
-                docker.image("${docker_image}:${BUILD_NUMBER}").PUSH()
+                scripts{
+                sh docker.withRegistry('https://index.docker.io/v1/', "docker-cred")
+                sh docker.image("${docker_image}:${BUILD_NUMBER}").PUSH()
+                }
             }
         }
         
