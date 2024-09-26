@@ -1,0 +1,22 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: onlinebooksore
+  labels:
+    app: onlinebooksore
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: onlinebooksore
+  template:
+    metadata:
+      labels:
+        app: onlinebooksore
+    spec:
+      containers:
+      - name: onlinebooksore
+        image: mvmadhan/tomcat:replaceImageTag
+        ports:
+        - containerPort: 8080
