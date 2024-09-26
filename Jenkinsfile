@@ -15,8 +15,9 @@ pipeline {
         
         stage("build") {
             steps {
-                sh 'pwd ; ls'
+                
                 sh 'mvn package'
+                sh 'pwd ; ls -la'
             }
         }
         
@@ -31,4 +32,5 @@ pipeline {
         }
         
     }
+
 }
