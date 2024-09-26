@@ -1,41 +1,29 @@
-pipeline {
-    agent { 
-        label 'slave'
-    }  
-    stages {
-        stage('Git Checkout') {
-            steps {
-                script {
-                    docker.image('mvmadhan/maven-docker-agent:v1').inside('--user root -v /var/run/docker.sock:/var/run/docker.sock') {
-                        git 'https://github.com/mvMadhan/onlinebookstore'
-                    }
-                }
+pipeline{
+    agent {
+        docker {
+            image 'mvmadhan/maven-docker-agent:v1'
+            args ' --user root -v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    stages{
+        stage("checkout"){
+            steps{
+                sh 'echo file is cloned'
             }
         }
-        stage('Build Application') {
-            steps {
-                script {
-                    docker.image('mvmadhan/maven-docker-agent:v1').inside('--user root -v /var/run/docker.sock:/var/run/docker.sock') {
-                        sh 'mvn package'
-                    }
-                }
+        stage("build"){
+            steps{
+                sh 'pwd ; ls'
+                sh 'mvn build'
             }
         }
-        stage('Build and Push Docker Image') {
-            environment {
-                DOCKER_IMAGE = 'mvmadhan/manifest:v1'
-                DOCKER_CRED = credentials('docker-cred')
+        stage("dockerbuild"){
+            environment{
+                dokcer_image = "mvmadhan/tomcat:${BUILD_NUMBER}"
             }
-            steps {
-                script {
-                    docker.image('mvmadhan/maven-docker-agent:v1').inside('--user root -v /var/run/docker.sock:/var/run/docker.sock') {
-                        sh "docker build -t ${DOCKER_IMAGE} ."
-                        docker.withRegistry('https://index.docker.io/v1/', DOCKER_CRED) {
-                            sh "docker push ${DOCKER_IMAGE}"
-                        }
-                    }
-                }
+            steps{
+                sh 'docker build -t ${docker_image} .'
             }
         }
+    }
     }
 }
