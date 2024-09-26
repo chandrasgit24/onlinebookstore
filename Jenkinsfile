@@ -29,14 +29,14 @@ pipeline {
                 sh 'docker build -t ${docker_image} .'
             }
         }
-        stage{
+        stage("push"){
             environment {
                 DOCKER_CRED = credentials("docker-cred")
             }
             steps{
-                scripts{
-                sh docker.withRegistry('https://index.docker.io/v1/', "docker-cred")
-                sh docker.image("${docker_image}:${BUILD_NUMBER}").PUSH()
+                script{
+                    docker.withRegistry('https://index.docker.io/v1/', "docker-cred")
+                    docker.image("${docker_image}:${BUILD_NUMBER}").PUSH()
                 }
             }
         }
