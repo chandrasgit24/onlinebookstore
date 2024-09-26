@@ -16,7 +16,7 @@ pipeline {
         stage("build") {
             steps {
                 sh 'pwd ; ls'
-                sh 'mvn build'
+                sh 'mvn package'
             }
         }
         
