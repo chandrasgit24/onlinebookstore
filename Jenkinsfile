@@ -28,10 +28,11 @@ pipeline {
             }
             steps {
                 script{
-                    docker build -t ${docker_image} .
-                    docker.withRegistry('https://index.docker.io/v1/', "docker-cred")
-                    docker.image("${docker_image}:${BUILD_NUMBER}").PUSH()
-                    
+                    sh'docker build -t ${docker_image} .'
+                    def dockerImage = docker.image("${docker_image}")
+                    docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
+                        dockerImage.push()
+                        }
                 }
             }
         }
