@@ -29,14 +29,31 @@ pipeline {
             steps {
                 script{
                     sh'docker build -t ${docker_image} .'
-                    def dockerImage = docker.image("${docker_image}")
+                    def dockerImage = docker.image("${docker_image}:${BUILD_NUMBER}")
                     docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
                         dockerImage.push()
                         }
                 }
             }
         }
-        
+        stage('Update Deployment File') {
+            environment {
+                GIT_REPO_NAME = "onlinebookstore"
+                GIT_USER_NAME = "mvMadhan"
+            }
+            steps {
+                withCredentials([string(credentialsId: 'github-cred', variable: 'GITHUB_TOKEN')]) {
+                    sh '''
+                    git config user.email "madhanshiva.xyz@gmail.com"
+                    git config user.name "madhan shiva"
+                    BUILD_NUMBER=${BUILD_NUMBER}
+                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" onlinebookstore/onlinebookstore-manifests/deployment.yml
+                    git add onlinebookstore/onlinebookstore-manifests/deployment.yml
+                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+                    '''
+                }
+            }
+        }
     }
-
 }
