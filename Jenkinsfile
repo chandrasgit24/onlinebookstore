@@ -16,14 +16,14 @@ pipeline{
                 sh 'mvn build'
             }
         }
-        stage("dockerbuild"){
+        /*stage("dockerbuild"){
             environment{
                 dokcer_image = "mvmadhan/tomcat:${BUILD_NUMBER}"
             }
             steps{
                 sh 'docker build -t ${docker_image} .'
             }
+        }*/
         }
-    }
     }
 }
