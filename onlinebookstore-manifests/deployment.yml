@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: onlinebooksore
+  name: onlinebookstore
   labels:
-    app: onlinebooksore
+    app: onlinebookstore
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: onlinebooksore
+      app: onlinebookstore
   template:
     metadata:
       labels:
-        app: onlinebooksore
+        app: onlinebookstore
     spec:
       containers:
-      - name: onlinebooksore
+      - name: onlinebookstore
         image: mvmadhan/tomcat:17
         ports:
         - containerPort: 8080
