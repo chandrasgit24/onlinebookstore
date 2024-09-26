@@ -1,8 +1,8 @@
 FROM tomcat:9-jre11
 
-WORKDIR /usr/local/tomcat/webapps
+WORKDIR /usr/local/tomcat/webapps/
 
-COPY /var/lib/jenkins/workspace/CICD/target/onlinebookstore.war ./
+COPY /target/onlinebookstore.war ./
 
 EXPOSE 8080
 
